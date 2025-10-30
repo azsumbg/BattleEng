@@ -31,6 +31,18 @@ int dll::RandIt::operator()(int min, int max)
 
 //////////////////////////////////
 
+// EXCEPTION ********************
+
+dll::EXCEPTION::EXCEPTION(int what) :error_occurred(what) {};
+
+LPCWSTR dll::EXCEPTION::GetError()const
+{
+	if (error_occurred == 1)return error1;
+
+	return error2;
+}
+
+
 // PROTON ***********************
 
 dll::PROTON::PROTON()
@@ -188,7 +200,7 @@ dll::ASSETS::ASSETS(obstacle what_type, float start_x, float start_y) :PROTON(st
 		break;
 
 	case obstacle::mine:
-		NewDims(261.0f, 363.0f);
+		NewDims(100.0f, 135.0f);
 		goods_delay = 100;
 		lifes = 150;
 		goods_in_asset = 50;
@@ -250,6 +262,7 @@ dll::UNITS::UNITS(unit_type what, float start_x, float start_y)
 	switch (type)
 	{
 	case unit_type::peon:
+		NewDims(85.0f, 52.0f);
 		lifes = 50 + rand_gen(0, 20);
 		speed = 0.5f + (float)(rand_gen(0, 2)) / 10.0f;
 		strenght = 5 + rand_gen(0, 5);
@@ -261,6 +274,7 @@ dll::UNITS::UNITS(unit_type what, float start_x, float start_y)
 		break;
 
 	case unit_type::orc_warrior:
+		NewDims(117.0f, 100.0f);
 		lifes = 100 + rand_gen(0, 30);
 		speed = 0.8f + (float)(rand_gen(0, 3)) / 10.0f;
 		strenght = 25 + rand_gen(0, 5);
@@ -272,6 +286,7 @@ dll::UNITS::UNITS(unit_type what, float start_x, float start_y)
 		break;
 
 	case unit_type::orc_knight:
+		NewDims(150.0f, 101.0f);
 		lifes = 100 + rand_gen(0, 30);
 		speed = 0.4f + (float)(rand_gen(0, 3)) / 10.0f;
 		strenght = 50 + rand_gen(0, 10);
@@ -283,6 +298,7 @@ dll::UNITS::UNITS(unit_type what, float start_x, float start_y)
 		break;
 
 	case unit_type::orc_archer:
+		NewDims(100.0f, 106.0f);
 		lifes = 70 + rand_gen(0, 30);
 		speed = 0.6f + (float)(rand_gen(0, 3)) / 10.0f;
 		strenght = 40 + rand_gen(0, 5);
@@ -294,6 +310,7 @@ dll::UNITS::UNITS(unit_type what, float start_x, float start_y)
 		break;
 
 	case unit_type::peasant:
+		NewDims(80.0f, 85.0f);
 		lifes = 50 + rand_gen(0, 20);
 		speed = 0.5f + (float)(rand_gen(0, 2)) / 10.0f;
 		strenght = 5 + rand_gen(0, 5);
@@ -305,6 +322,7 @@ dll::UNITS::UNITS(unit_type what, float start_x, float start_y)
 		break;
 
 	case unit_type::warrior:
+		NewDims(40.0f, 90.0f);
 		lifes = 100 + rand_gen(0, 30);
 		speed = 0.8f + (float)(rand_gen(0, 3)) / 10.0f;
 		strenght = 25 + rand_gen(0, 5);
@@ -316,6 +334,7 @@ dll::UNITS::UNITS(unit_type what, float start_x, float start_y)
 		break;
 
 	case unit_type::knight:
+		NewDims(100.0f, 103.0f);
 		lifes = 100 + rand_gen(0, 30);
 		speed = 0.4f + (float)(rand_gen(0, 3)) / 10.0f;
 		strenght = 50 + rand_gen(0, 10);
@@ -327,6 +346,7 @@ dll::UNITS::UNITS(unit_type what, float start_x, float start_y)
 		break;
 
 	case unit_type::archer:
+		NewDims(67.0f, 90.0f);
 		lifes = 70 + rand_gen(0, 30);
 		speed = 0.6f + (float)(rand_gen(0, 3)) / 10.0f;
 		strenght = 40 + rand_gen(0, 5);
