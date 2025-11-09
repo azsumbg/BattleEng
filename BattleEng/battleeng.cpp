@@ -253,7 +253,7 @@ void dll::ASSETS::Release()
 
 int dll::UNITS::global_counter = 0;
 
-dll::UNITS::UNITS(unit_type what, float start_x, float start_y)
+dll::UNITS::UNITS(unit_type what, float start_x, float start_y) :PROTON(start_x, start_y)
 {
 	type = what;
 
@@ -409,8 +409,10 @@ int dll::UNITS::GetMyNumber() const
 {
 	return number;
 }
-void dll::UNITS::Move(float gear, BAG<ASSETS>obstacles)
+void dll::UNITS::Move(float gear, BAG<ASSETS>&obstacles)
 {
+	if (obstacles.size() < 1)return;
+
 	float now_speed = speed * gear / 10.0f;
 
 	char obstacle = 0b00000000;
@@ -442,13 +444,12 @@ void dll::UNITS::Move(float gear, BAG<ASSETS>obstacles)
 				FPOINT(obstacles[i].start.x, obstacles[i].end.y),
 				FPOINT(obstacles[i].end.x, obstacles[i].end.y))))
 		{
+
 			if (obstacles[i].type == obstacle::small_tree || obstacles[i].type == obstacle::mid_tree
 				|| obstacles[i].type == obstacle::big_tree || obstacles[i].type == obstacle::mine)
-			{
 				current_action = actions::harvest;
-				return;
-			}
-
+			
+			if (current_action == actions::harvest)break;
 
 			if (start.y >= obstacles[i].start.y && start.y <= obstacles[i].end.y)obstacle |= up;
 			if (end.y >= obstacles[i].start.y && end.y <= obstacles[i].end.y)obstacle |= down;
